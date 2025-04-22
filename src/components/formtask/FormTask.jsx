@@ -10,7 +10,7 @@ const FormTask = ({ onAdd }) => {
     e.target.reset();
   };
   return (
-    <form className={css} onSubmit={handleSubmit}>
+    <form className={css.container} onSubmit={handleSubmit}>
       <input type="text" className={css} name="text" />
       <button type="submit">Add task</button>
     </form>
