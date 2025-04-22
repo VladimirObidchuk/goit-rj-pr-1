@@ -1,13 +1,19 @@
 import "modern-normalize";
+import "./App.css";
+import { useState } from "react";
+
 import LoginForm from "./loginform/LoginForm";
 import Product from "./Product";
 import SearchBar from "./searchbar/SearchBar";
-import "./App.css";
 import LangSwitcher from "./langswitcher/LangSwitcher";
-import { useState } from "react";
 import CoffeCapSize from "./cofferadio/CoffeCapSize";
 import LicenseCheck from "./license/LicenseCheck";
 import LoginFormHight from "./login/LoginFormHight";
+
+import initialTasks from "../task.json";
+import TaskList from "./tasklist/TaskList";
+import FormTask from "./formtask/FormTask";
+import Filter from "./filtertasks/Filter";
 
 export default function App() {
   const [lang, setLang] = useState("uk");
@@ -17,6 +23,9 @@ export default function App() {
     login: "",
     password: "",
   });
+  const [tasks, setTasks] = useState(initialTasks);
+  const [filter, setFilter] = useState("");
+
   const handleLogin = (userData) => {
     console.log(" userData", userData);
   };
@@ -40,6 +49,21 @@ export default function App() {
       password: "",
     });
   };
+  const addTask = (newTask) => {
+    setTasks((prevTasks) => {
+      return [...prevTasks, newTask];
+    });
+  };
+  const visibleTasks = tasks.filter((task) =>
+    task.text.toLowerCase().includes(filter.toLowerCase())
+  );
+
+  const deleteTask = (taskId) => {
+    setTasks((prevTasks) => {
+      return prevTasks.filter((task) => task.id !== taskId);
+    });
+  };
+
   return (
     <div className="main">
       <h1>Best selling</h1>
@@ -64,6 +88,11 @@ export default function App() {
         handleChange={handleChange}
         onSubmit={handleSubmit}
       />
+      <div className="section-list">
+        <FormTask onAdd={addTask} />
+        <Filter value={filter} onFilter={setFilter} />
+        <TaskList tasks={visibleTasks} onDelete={deleteTask} />
+      </div>
     </div>
   );
 }
