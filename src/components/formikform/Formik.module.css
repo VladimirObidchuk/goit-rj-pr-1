@@ -18,3 +18,9 @@
 .select {
   width: 30%;
 }
+.blockinput {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+}
