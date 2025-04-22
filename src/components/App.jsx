@@ -14,6 +14,7 @@ import initialTasks from "../task.json";
 import TaskList from "./tasklist/TaskList";
 import FormTask from "./formtask/FormTask";
 import Filter from "./filtertasks/Filter";
+import FeedbackForm from "./formikform/Formik";
 
 export default function App() {
   const [lang, setLang] = useState("uk");
@@ -92,6 +93,10 @@ export default function App() {
         <FormTask onAdd={addTask} />
         <Filter value={filter} onFilter={setFilter} />
         <TaskList tasks={visibleTasks} onDelete={deleteTask} />
+      </div>
+      <div>
+        <h3>Work with Formik</h3>
+        <FeedbackForm />
       </div>
     </div>
   );
